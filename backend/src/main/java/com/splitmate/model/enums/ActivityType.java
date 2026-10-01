@@ -1,0 +1,12 @@
+package com.splitmate.model.enums;
+
+public enum ActivityType {
+    EXPENSE_ADDED,
+    EXPENSE_UPDATED,
+    EXPENSE_DELETED,
+    SETTLEMENT_CREATED,
+    FRIEND_REQUEST_SENT,
+    FRIEND_REQUEST_ACCEPTED,
+    GROUP_CREATED,
+    GROUP_MEMBER_ADDED
+}
