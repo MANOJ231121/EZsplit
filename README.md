@@ -1,13 +1,13 @@
-# 💸 SplitMate - Modern Expense Sharing Application
+# 💸 EzSplit - Modern Expense Sharing Application
 
-**SplitMate** is a full-stack, production-ready expense-sharing application inspired by Splitwise UX. It allows friends, roommates, and travel groups to sign in with Google accounts, create groups, add friends, record shared expenses with custom splits, calculate balances dynamically, and settle debts with simplified transaction minimization.
+**EzSplit** is a full-stack, production-ready expense-sharing application inspired by Splitwise UX. It allows friends, roommates, and travel groups to sign in with Google accounts, create groups, add friends, record shared expenses with custom splits, calculate balances dynamically, and settle debts with simplified transaction minimization.
 
 ---
 
 ## 🌟 Features
 
 - **Real Google OAuth 2.0 Authentication**: Seamless Sign-In with Google account and session JWT verification.
-- **Sleek Modern UI/UX**: Inspired by financial mobile applications with rounded cards, emerald primary accents, status indicators (Green = Owed, Red = Owes, Gray = Settled), and responsive desktop sidebar + mobile bottom navigation.
+- **Sleek Modern UI/UX**: Inspired by financial mobile applications with rounded cards, cyan primary accents, status indicators (Green = Owed, Red = Owes, Gray = Settled), and responsive desktop sidebar + mobile bottom navigation.
 - **Dynamic Debt Settlement Engine**: Implements a greedy minimum-transfers algorithm to simplify group debts into the minimum required transactions.
 - **Expense Splitting Modes**: Supports **Equal (=)**, **Exact Amounts (₹)**, and **Percentage (%)** splits with automatic validation.
 - **Friends & Request System**: Search friends by Google email, manage pending requests, view 1-on-1 balances, and settle debts.
@@ -21,7 +21,7 @@
 
 ### **Frontend**
 - **Framework**: React 18 + Vite
-- **Styling**: Tailwind CSS (Emerald/Brand Theme, soft glassmorphism, responsive grid)
+- **Styling**: Tailwind CSS (Cyan/Brand Theme, soft glassmorphism, responsive grid)
 - **Icons**: Lucide React
 - **Routing**: React Router DOM v6
 - **HTTP Client**: Axios with JWT Request/Response Interceptors
@@ -39,9 +39,9 @@
 ## 📁 Project Structure
 
 ```
-splitmate/
+ezsplit/
 ├── backend/
-│   ├── src/main/java/com/splitmate/
+│   ├── src/main/java/com/ezsplit/
 │   │   ├── config/             # Security, CORS, DataInitializer
 │   │   ├── controller/         # Auth, Friends, Groups, Expenses, Settlements, Dashboard
 │   │   ├── dto/                # UserDto, ExpenseDto, GroupBalanceDto, etc.
@@ -109,7 +109,7 @@ Open `http://localhost:5173` in your browser.
 ### **1. Database: MongoDB Atlas**
 1. Create a free M0 cluster on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 2. Create a database user and copy your connection string:
-   `mongodb+srv://<user>:<password>@cluster.mongodb.net/splitmate?retryWrites=true&w=majority`
+   `mongodb+srv://<user>:<password>@cluster.mongodb.net/ezsplit?retryWrites=true&w=majority`
 
 ### **2. Backend: Railway / Render**
 1. Connect your repository to **Railway** or **Render**.
@@ -126,5 +126,5 @@ Open `http://localhost:5173` in your browser.
 2. Set Root Directory to `frontend/`.
 3. Set Build Command to `npm run build` and Output Directory to `dist`.
 4. Configure Environment Variables:
-   - `VITE_API_BASE_URL`: Your deployed backend API URL (e.g. `https://splitmate-api.up.railway.app/api`)
+   - `VITE_API_BASE_URL`: Your deployed backend API URL (e.g. `https://ezsplit-api.up.railway.app/api`)
    - `VITE_GOOGLE_CLIENT_ID`: Your Google OAuth Client ID

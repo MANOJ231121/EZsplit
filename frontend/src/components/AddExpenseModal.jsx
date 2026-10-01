@@ -404,7 +404,7 @@ export default function AddExpenseModal({ isOpen, onClose, onExpenseAdded, defau
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-base shadow-emerald-glow active:scale-98 transition-all disabled:opacity-50"
+            className="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-base shadow-brand-glow active:scale-98 transition-all disabled:opacity-50"
           >
             {submitting ? 'Saving Expense...' : 'Save Expense'}
           </button>

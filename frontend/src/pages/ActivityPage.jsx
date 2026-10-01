@@ -31,7 +31,7 @@ export default function ActivityPage() {
       case 'EXPENSE_UPDATED':
         return <Calculator className="w-5 h-5 text-brand-600" />;
       case 'SETTLEMENT_CREATED':
-        return <CheckCircle className="w-5 h-5 text-emerald-600" />;
+        return <CheckCircle className="w-5 h-5 text-cyan-600" />;
       case 'FRIEND_REQUEST_SENT':
       case 'FRIEND_REQUEST_ACCEPTED':
         return <UserPlus className="w-5 h-5 text-teal-600" />;

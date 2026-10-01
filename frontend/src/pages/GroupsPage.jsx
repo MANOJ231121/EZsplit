@@ -63,7 +63,7 @@ export default function GroupsPage() {
             </p>
             <button
               onClick={() => setIsCreateModalOpen(true)}
-              className="px-5 py-2.5 rounded-xl bg-brand-500 text-white font-bold text-xs hover:bg-brand-600 shadow-emerald-glow"
+              className="px-5 py-2.5 rounded-xl bg-brand-500 text-white font-bold text-xs hover:bg-brand-600 shadow-brand-glow"
             >
               Create Group
             </button>
@@ -82,7 +82,7 @@ export default function GroupsPage() {
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-teal-500 text-white flex items-center justify-center font-black text-base shadow-emerald-glow">
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-teal-500 text-white flex items-center justify-center font-black text-base shadow-brand-glow">
                         {group.name.substring(0, 2).toUpperCase()}
                       </div>
                       <div>

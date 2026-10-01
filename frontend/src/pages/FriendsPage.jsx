@@ -81,7 +81,7 @@ export default function FriendsPage() {
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Friends</h1>
           <button
             onClick={() => setIsAddFriendOpen(true)}
-            className="py-2.5 px-4 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-emerald-glow active:scale-95 transition-all"
+            className="py-2.5 px-4 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-brand-glow active:scale-95 transition-all"
           >
             <UserPlus className="w-4 h-4" />
             <span>Add Friends</span>
@@ -177,7 +177,7 @@ export default function FriendsPage() {
             </p>
             <button
               onClick={() => setIsAddFriendOpen(true)}
-              className="px-5 py-2.5 rounded-xl bg-brand-500 text-white font-bold text-xs hover:bg-brand-600 shadow-emerald-glow"
+              className="px-5 py-2.5 rounded-xl bg-brand-500 text-white font-bold text-xs hover:bg-brand-600 shadow-brand-glow"
             >
               Add Friend
             </button>

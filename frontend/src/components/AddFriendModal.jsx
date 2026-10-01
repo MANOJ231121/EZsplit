@@ -63,7 +63,7 @@ export default function AddFriendModal({ isOpen, onClose, onRequestSent }) {
           )}
 
           {success && (
-            <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold flex items-center gap-2">
+            <div className="p-3.5 rounded-xl bg-cyan-50 border border-cyan-200 text-cyan-700 text-xs font-semibold flex items-center gap-2">
               <CheckCircle className="w-4 h-4 flex-shrink-0" />
               <span>{success}</span>
             </div>
@@ -85,14 +85,14 @@ export default function AddFriendModal({ isOpen, onClose, onRequestSent }) {
               />
             </div>
             <p className="text-xs text-slate-500 mt-1.5">
-              Enter their Google account email to send a SplitMate friend request.
+              Enter their Google account email to send a EzSplit friend request.
             </p>
           </div>
 
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-base shadow-emerald-glow active:scale-98 transition-all disabled:opacity-50"
+            className="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-base shadow-brand-glow active:scale-98 transition-all disabled:opacity-50"
           >
             {submitting ? 'Sending Request...' : 'Send Friend Request'}
           </button>

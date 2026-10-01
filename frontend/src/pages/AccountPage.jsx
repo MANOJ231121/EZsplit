@@ -5,7 +5,7 @@ import { LogOut, ShieldCheck, Mail, User, IndianRupee, Globe, HelpCircle } from 
 import { useNavigate } from 'react-router-dom';
 
 export default function AccountPage() {
-  const { user, logout, loginDemoUser } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -20,7 +20,7 @@ export default function AccountPage() {
       <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-8 pt-6 space-y-6">
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Account & Settings</h1>
-          <p className="text-xs text-slate-500 font-medium">Manage your SplitMate profile and authentication.</p>
+          <p className="text-xs text-slate-500 font-medium">Manage your EzSplit profile and authentication.</p>
         </div>
 
         {/* Profile Details Card */}
@@ -39,9 +39,9 @@ export default function AccountPage() {
                   <Mail className="w-3.5 h-3.5" />
                   <span>{user.email}</span>
                 </p>
-                <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-200">
+                <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-50 text-cyan-700 text-[10px] font-bold border border-cyan-200">
                   <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>Google OAuth 2.0 Authenticated</span>
+                  <span>{user.googleId ? 'Google OAuth 2.0 Authenticated' : 'Password Authenticated'}</span>
                 </div>
               </div>
             </div>
@@ -52,36 +52,12 @@ export default function AccountPage() {
                 <span className="font-bold text-slate-800 font-mono text-[11px] truncate block">{user.id}</span>
               </div>
               <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                <span className="text-slate-400 font-bold block">Google Subject ID</span>
-                <span className="font-bold text-slate-800 font-mono text-[11px] truncate block">{user.googleId || 'N/A'}</span>
+                <span className="text-slate-400 font-bold block">Linked Google ID</span>
+                <span className="font-bold text-slate-800 font-mono text-[11px] truncate block">{user.googleId || 'Not linked'}</span>
               </div>
             </div>
           </div>
         )}
-
-        {/* Demo User Quick Switcher */}
-        <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-soft space-y-4">
-          <h3 className="font-extrabold text-slate-900 text-sm">Switch Account (Evaluation Demo Mode)</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            {['manoj@gmail.com', 'rahul@gmail.com', 'aman@gmail.com', 'rohit@gmail.com'].map(email => (
-              <button
-                key={email}
-                onClick={async () => {
-                  await loginDemoUser(email);
-                  navigate('/dashboard');
-                }}
-                className={`p-2.5 rounded-2xl border text-left text-xs font-bold transition-all ${
-                  user?.email === email
-                    ? 'border-brand-500 bg-brand-50 text-brand-700'
-                    : 'border-slate-200 hover:border-slate-300 text-slate-700 bg-slate-50'
-                }`}
-              >
-                <span className="capitalize block truncate">{email.split('@')[0]}</span>
-                <span className="text-[10px] text-slate-400 font-normal block truncate">{email}</span>
-              </button>
-            ))}
-          </div>
-        </div>
 
         {/* App Settings Card */}
         <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-soft space-y-4">
@@ -100,7 +76,7 @@ export default function AccountPage() {
               <Globe className="w-5 h-5 text-slate-500" />
               <span className="text-xs font-bold text-slate-800">Deployment Target</span>
             </div>
-            <span className="text-xs font-extrabold text-brand-600 bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">
+            <span className="text-xs font-extrabold text-brand-600 bg-cyan-50 px-3 py-1 rounded-lg border border-cyan-200">
               Vercel + Railway + Atlas
             </span>
           </div>

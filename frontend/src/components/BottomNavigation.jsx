@@ -36,7 +36,7 @@ export default function BottomNavigation({ onOpenAddExpense }) {
         <div className="relative -top-5">
           <button
             onClick={onOpenAddExpense}
-            className="w-14 h-14 rounded-full bg-brand-500 text-white flex items-center justify-center shadow-emerald-glow transform hover:scale-105 active:scale-95 transition-all border-4 border-slate-50"
+            className="w-14 h-14 rounded-full bg-brand-500 text-white flex items-center justify-center shadow-brand-glow transform hover:scale-105 active:scale-95 transition-all border-4 border-slate-50"
             aria-label="Add Expense"
           >
             <Plus className="w-7 h-7 stroke-[3]" />

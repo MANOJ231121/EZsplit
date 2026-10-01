@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Users, UsersRound, Activity, User, Plus, Wallet } from 'lucide-react';
+import { LayoutDashboard, Users, UsersRound, Activity, User, Plus } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import EzSplitLogo from './EzSplitLogo';
 
 export default function Sidebar({ onOpenAddExpense }) {
   const { user } = useAuth();
@@ -18,19 +19,17 @@ export default function Sidebar({ onOpenAddExpense }) {
     <aside className="hidden md:flex flex-col w-64 bg-slate-900 text-slate-300 min-h-screen border-r border-slate-800 p-5 sticky top-0 h-screen">
       {/* Brand Header */}
       <div className="flex items-center gap-3 px-2 mb-8">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center text-white shadow-emerald-glow">
-          <Wallet className="w-6 h-6" />
-        </div>
+        <EzSplitLogo className="w-10 h-10" rounded="rounded-xl" />
         <div>
-          <h1 className="font-extrabold text-xl text-white tracking-tight">SplitMate</h1>
-          <p className="text-xs text-brand-400 font-medium">Expense Sharing</p>
+          <h1 className="font-extrabold text-xl text-white tracking-tight">EzSplit</h1>
+          <p className="text-xs text-brand-300 font-medium">Expense Sharing</p>
         </div>
       </div>
 
       {/* Add Expense Action Button */}
       <button
         onClick={onOpenAddExpense}
-        className="w-full mb-6 py-3 px-4 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-semibold flex items-center justify-center gap-2 shadow-emerald-glow transition-all transform active:scale-95"
+        className="w-full mb-6 py-3 px-4 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-semibold flex items-center justify-center gap-2 shadow-brand-glow transition-all transform active:scale-95"
       >
         <Plus className="w-5 h-5 stroke-[2.5]" />
         <span>Add Expense</span>

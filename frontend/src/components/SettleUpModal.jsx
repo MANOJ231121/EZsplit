@@ -56,7 +56,7 @@ export default function SettleUpModal({ isOpen, onClose, targetFriend, defaultAm
   return (
     <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-slate-950/60 backdrop-blur-sm p-0 md:p-4 overflow-y-auto">
       <div className="w-full max-w-md bg-white rounded-t-3xl md:rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in slide-in-from-bottom duration-200">
-        <div className="px-6 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white flex items-center justify-between">
+        <div className="px-6 py-4 bg-gradient-to-r from-cyan-600 to-brand-500 text-white flex items-center justify-between">
           <div className="flex items-center gap-2">
             <CheckCircle className="w-6 h-6" />
             <h2 className="font-bold text-lg">Settle Up Debt</h2>
@@ -133,7 +133,7 @@ export default function SettleUpModal({ isOpen, onClose, targetFriend, defaultAm
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-base shadow-emerald-glow active:scale-98 transition-all disabled:opacity-50"
+            className="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-base shadow-brand-glow active:scale-98 transition-all disabled:opacity-50"
           >
             {submitting ? 'Recording Settlement...' : 'Confirm Settlement'}
           </button>

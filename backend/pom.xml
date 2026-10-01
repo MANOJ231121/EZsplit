@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.splitmate</groupId>
-	<artifactId>splitmate-backend</artifactId>
+	<groupId>com.ezsplit</groupId>
+	<artifactId>ezsplit-backend</artifactId>
 	<version>1.0.0</version>
-	<name>splitmate-backend</name>
-	<description>SplitMate - Modern Expense Sharing Backend</description>
+	<name>ezsplit-backend</name>
+	<description>EzSplit - Modern Expense Sharing Backend</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

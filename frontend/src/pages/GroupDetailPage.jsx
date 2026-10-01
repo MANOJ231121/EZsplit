@@ -98,7 +98,7 @@ export default function GroupDetailPage() {
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-brand-600 to-emerald-400 text-white flex items-center justify-center font-black text-2xl shadow-emerald-glow">
+              <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-brand-600 to-cyan-400 text-white flex items-center justify-center font-black text-2xl shadow-brand-glow">
                 {group.name.substring(0, 2).toUpperCase()}
               </div>
               <div>
@@ -159,7 +159,7 @@ export default function GroupDetailPage() {
 
           <button
             onClick={() => setIsAddExpenseOpen(true)}
-            className="py-2 px-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-emerald-glow active:scale-95 transition-all flex-shrink-0"
+            className="py-2 px-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-brand-glow active:scale-95 transition-all flex-shrink-0"
           >
             <Plus className="w-4 h-4 stroke-[3]" />
             <span>Add Expense</span>
@@ -245,11 +245,11 @@ export default function GroupDetailPage() {
                 <span>Simplified Debt Settlements</span>
               </h3>
               <p className="text-xs text-slate-500">
-                SplitMate's greedy min-transfers algorithm minimizes the number of money transactions required to settle all group debts.
+                EzSplit's greedy min-transfers algorithm minimizes the number of money transactions required to settle all group debts.
               </p>
 
               {balances?.simplifiedTransactions?.length === 0 ? (
-                <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold text-center">
+                <div className="p-4 rounded-2xl bg-cyan-50 border border-cyan-200 text-cyan-800 text-xs font-bold text-center">
                   ✨ All group members are fully settled up! No transactions needed.
                 </div>
               ) : (

@@ -3,11 +3,11 @@ server:
 
 spring:
   application:
-    name: splitmate-backend
+    name: ezsplit-backend
 
   data:
     mongodb:
-      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/splitmate}
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/ezsplit}
 
   security:
     oauth2:
@@ -23,7 +23,7 @@ spring:
 
 app:
   jwt:
-    secret: ${JWT_SECRET:SplitMateSecretKeyForJWTGenerationThatIsAtLeast256BitsLongForHS256Algorithm9876543210}
+    secret: ${JWT_SECRET:EzSplitSecretKeyForJWTGenerationThatIsAtLeast256BitsLongForHS256Algorithm9876543210}
     expiration-ms: 864000000 # 10 days
 
 cors:

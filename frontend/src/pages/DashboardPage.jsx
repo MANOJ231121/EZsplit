@@ -57,7 +57,7 @@ export default function DashboardPage() {
 
           <button
             onClick={() => setIsAddExpenseOpen(true)}
-            className="self-start sm:self-auto py-3 px-5 rounded-2xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-sm flex items-center gap-2 shadow-emerald-glow active:scale-95 transition-all"
+            className="self-start sm:self-auto py-3 px-5 rounded-2xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-sm flex items-center gap-2 shadow-brand-glow active:scale-95 transition-all"
           >
             <Plus className="w-5 h-5 stroke-[2.5]" />
             <span>Add Expense</span>
@@ -114,7 +114,7 @@ export default function DashboardPage() {
             <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-soft flex flex-col justify-between">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-500">You Are Owed</span>
-                <div className="w-9 h-9 rounded-xl bg-emerald-50 text-brand-600 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-cyan-50 text-brand-600 flex items-center justify-center">
                   <TrendingUp className="w-5 h-5" />
                 </div>
               </div>
@@ -232,7 +232,7 @@ export default function DashboardPage() {
                     >
                       <div className="flex items-center gap-3.5">
                         <div className={`w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-sm ${
-                          isPayer ? 'bg-emerald-50 text-brand-600' : 'bg-red-50 text-red-500'
+                          isPayer ? 'bg-cyan-50 text-brand-600' : 'bg-red-50 text-red-500'
                         }`}>
                           {isPayer ? <ArrowUpRight className="w-5 h-5 stroke-[2.5]" /> : <ArrowDownLeft className="w-5 h-5 stroke-[2.5]" />}
                         </div>
