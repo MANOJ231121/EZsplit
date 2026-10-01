@@ -1,6 +1,6 @@
-# 💸 SplitMate - Modern Expense Sharing Application
+# 💸 EzSplit - Modern Expense Sharing Application
 
-**SplitMate** is a full-stack, production-ready expense-sharing application inspired by Splitwise UX. It allows friends, roommates, and travel groups to sign in with Google accounts, create groups, add friends, record shared expenses with custom splits, calculate balances dynamically, and settle debts with simplified transaction minimization.
+**EzSplit** is a full-stack, production-ready expense-sharing application inspired by Splitwise UX. It allows friends, roommates, and travel groups to sign in with Google accounts, create groups, add friends, record shared expenses with custom splits, calculate balances dynamically, and settle debts with simplified transaction minimization.
 
 ---
 
