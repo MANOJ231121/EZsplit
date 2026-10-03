@@ -47,6 +47,22 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
   };
 
+  // Re-pulls the profile so payment/UPI edits are reflected app-wide without a
+  // full re-login. Falls back to cached data if the request fails.
+  const refreshUser = async () => {
+    try {
+      const res = await api.get('/auth/me');
+      if (res.success && res.data) {
+        setUser(res.data);
+        localStorage.setItem(USER_KEY, JSON.stringify(res.data));
+        return res.data;
+      }
+    } catch (err) {
+      console.warn('Could not refresh profile:', err.message);
+    }
+    return null;
+  };
+
   const login = async (email, password) => {
     try {
       const res = await api.post('/auth/login', { email, password });
@@ -111,6 +127,7 @@ export const AuthProvider = ({ children }) => {
         register,
         loginWithGoogleToken,
         logout,
+        refreshUser,
         isAuthenticated: !!token && !!user,
       }}
     >

@@ -38,14 +38,14 @@ function Field({ icon: Icon, label, type = 'text', value, onChange, autoComplete
           onChange={onChange}
           autoComplete={autoComplete}
           placeholder={placeholder}
-          className={`w-full h-12 pl-11 ${onToggleVisibility ? 'pr-11' : 'pr-4'} rounded-xl bg-white border border-slate-200 text-[15px] text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-brand-400 focus:ring-4 focus:ring-brand-50`}
+          className={`w-full h-12 pl-11 ${onToggleVisibility ? 'pr-11' : 'pr-4'} rounded-xl bg-white border border-slate-200 text-base text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-brand-400 focus:ring-4 focus:ring-brand-50`}
         />
         {onToggleVisibility && (
           <button
             type="button"
             onClick={onToggleVisibility}
             aria-label={visible ? 'Hide password' : 'Show password'}
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 p-2 -m-1 rounded-lg text-slate-400 hover:text-brand-600 hover:bg-brand-50 transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-lg text-slate-400 active:text-brand-600 active:bg-brand-50 transition-colors"
           >
             {visible ? <EyeOff className="w-[18px] h-[18px]" /> : <Eye className="w-[18px] h-[18px]" />}
           </button>
@@ -283,7 +283,7 @@ export default function LoginPage() {
                 <span className="h-px flex-1 bg-slate-200" />
               </div>
 
-              <div ref={googleWrapRef} className="flex w-full justify-center">
+              <div ref={googleWrapRef} className="flex w-full justify-center py-1">
                 <GoogleLogin
                   onSuccess={handleGoogleSuccess}
                   onError={() => setError('Google sign in was cancelled')}
@@ -307,7 +307,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={switchMode}
-                className="font-bold text-brand-600 underline-offset-4 transition-colors hover:text-brand-700 hover:underline"
+                className="min-h-touch px-1 font-bold text-brand-600 underline-offset-4 transition-colors active:text-brand-700 active:underline"
               >
                 {isSignup ? 'Sign in' : 'Create new account'}
               </button>

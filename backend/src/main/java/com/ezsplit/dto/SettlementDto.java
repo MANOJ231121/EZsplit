@@ -11,6 +11,9 @@ public class SettlementDto {
     private UserDto toUser;
     private BigDecimal amount;
     private String note;
+    private String status;
+    private String paymentRef;
+    private Instant confirmedAt;
     private Instant createdAt;
 
     public SettlementDto() {}
@@ -29,6 +32,12 @@ public class SettlementDto {
     public void setAmount(BigDecimal amount) { this.amount = amount; }
     public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+    public String getPaymentRef() { return paymentRef; }
+    public void setPaymentRef(String paymentRef) { this.paymentRef = paymentRef; }
+    public Instant getConfirmedAt() { return confirmedAt; }
+    public void setConfirmedAt(Instant confirmedAt) { this.confirmedAt = confirmedAt; }
     public Instant getCreatedAt() { return createdAt; }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 }

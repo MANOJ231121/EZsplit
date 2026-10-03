@@ -5,6 +5,11 @@ spring:
   application:
     name: ezsplit-backend
 
+  servlet:
+    multipart:
+      max-file-size: 512KB
+      max-request-size: 1MB
+
   data:
     mongodb:
       uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/ezsplit}

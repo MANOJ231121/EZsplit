@@ -183,7 +183,7 @@ export default function AddExpenseModal({ isOpen, onClose, onExpenseAdded, defau
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-white/20 transition-colors"
+            className="min-w-touch min-h-touch flex items-center justify-center rounded-full active:bg-white/20 transition-colors" aria-label="Close"
           >
             <X className="w-5 h-5" />
           </button>
@@ -206,7 +206,7 @@ export default function AddExpenseModal({ isOpen, onClose, onExpenseAdded, defau
             <select
               value={groupId}
               onChange={(e) => setGroupId(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 text-sm font-medium focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 text-base font-medium focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none"
             >
               <option value="">Non-group expense (With Friends)</option>
               {availableGroups.map((g) => (
@@ -229,7 +229,7 @@ export default function AddExpenseModal({ isOpen, onClose, onExpenseAdded, defau
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-brand-500 outline-none"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-base font-medium focus:ring-2 focus:ring-brand-500 outline-none"
               />
             </div>
 
@@ -246,7 +246,7 @@ export default function AddExpenseModal({ isOpen, onClose, onExpenseAdded, defau
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   required
-                  className="w-full pl-8 pr-3 py-2.5 rounded-xl border border-slate-200 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-brand-500 outline-none"
+                  className="w-full pl-8 pr-3 py-2.5 rounded-xl border border-slate-200 text-base font-bold text-slate-900 focus:ring-2 focus:ring-brand-500 outline-none"
                 />
               </div>
             </div>
@@ -261,7 +261,7 @@ export default function AddExpenseModal({ isOpen, onClose, onExpenseAdded, defau
               <select
                 value={paidBy}
                 onChange={(e) => setPaidBy(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm font-medium focus:ring-2 focus:ring-brand-500 outline-none"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-base font-medium focus:ring-2 focus:ring-brand-500 outline-none"
               >
                 <option value={user.id}>You ({user.name})</option>
                 {selectedParticipants.filter(p => p.id !== user.id).map(p => (
@@ -277,7 +277,7 @@ export default function AddExpenseModal({ isOpen, onClose, onExpenseAdded, defau
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm font-medium focus:ring-2 focus:ring-brand-500 outline-none"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-base font-medium focus:ring-2 focus:ring-brand-500 outline-none"
               >
                 <option value="Food">Food & Drinks</option>
                 <option value="Travel">Travel & Transport</option>
@@ -376,7 +376,7 @@ export default function AddExpenseModal({ isOpen, onClose, onExpenseAdded, defau
                           placeholder="0.00"
                           value={customAmounts[member.id] || ''}
                           onChange={(e) => handleCustomAmountChange(member.id, e.target.value)}
-                          className="w-full px-2 py-1 text-xs border rounded-md font-bold focus:ring-1 focus:ring-brand-500 outline-none"
+                          className="w-full px-2 py-1 text-base border rounded-md font-bold focus:ring-1 focus:ring-brand-500 outline-none"
                         />
                       </div>
                     )}
@@ -389,7 +389,7 @@ export default function AddExpenseModal({ isOpen, onClose, onExpenseAdded, defau
                           placeholder="%"
                           value={customPcts[member.id] || ''}
                           onChange={(e) => handleCustomPctChange(member.id, e.target.value)}
-                          className="w-full px-2 py-1 text-xs border rounded-md font-bold focus:ring-1 focus:ring-brand-500 outline-none"
+                          className="w-full px-2 py-1 text-base border rounded-md font-bold focus:ring-1 focus:ring-brand-500 outline-none"
                         />
                         <span className="text-xs font-bold text-slate-400">%</span>
                       </div>

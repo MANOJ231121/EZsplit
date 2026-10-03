@@ -26,6 +26,14 @@ public class User {
 
     private String profilePicture;
 
+    private String upiId;
+
+    private String upiQrImage;
+
+    private Boolean paymentSetupComplete = Boolean.FALSE;
+
+    private Boolean paymentSetupDismissed = Boolean.FALSE;
+
     private List<String> friendIds = new ArrayList<>();
 
     private Instant createdAt = Instant.now();
@@ -86,6 +94,38 @@ public class User {
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public String getUpiId() {
+        return upiId;
+    }
+
+    public void setUpiId(String upiId) {
+        this.upiId = upiId;
+    }
+
+    public String getUpiQrImage() {
+        return upiQrImage;
+    }
+
+    public void setUpiQrImage(String upiQrImage) {
+        this.upiQrImage = upiQrImage;
+    }
+
+    public Boolean getPaymentSetupComplete() {
+        return paymentSetupComplete;
+    }
+
+    public void setPaymentSetupComplete(Boolean paymentSetupComplete) {
+        this.paymentSetupComplete = paymentSetupComplete;
+    }
+
+    public Boolean getPaymentSetupDismissed() {
+        return paymentSetupDismissed;
+    }
+
+    public void setPaymentSetupDismissed(Boolean paymentSetupDismissed) {
+        this.paymentSetupDismissed = paymentSetupDismissed;
     }
 
     public List<String> getFriendIds() {

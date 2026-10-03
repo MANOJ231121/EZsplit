@@ -9,6 +9,10 @@ public class UserDto {
     private String name;
     private String email;
     private String profilePicture;
+    private String upiId;
+    private boolean hasUpiQr;
+    private boolean paymentSetupComplete;
+    private boolean paymentSetupDismissed;
     private Instant createdAt;
 
     public UserDto() {}
@@ -20,6 +24,10 @@ public class UserDto {
             this.name = user.getName();
             this.email = user.getEmail();
             this.profilePicture = user.getProfilePicture();
+            this.upiId = user.getUpiId();
+            this.hasUpiQr = user.getUpiQrImage() != null && !user.getUpiQrImage().isBlank();
+            this.paymentSetupComplete = Boolean.TRUE.equals(user.getPaymentSetupComplete());
+            this.paymentSetupDismissed = Boolean.TRUE.equals(user.getPaymentSetupDismissed());
             this.createdAt = user.getCreatedAt();
         }
     }
@@ -34,6 +42,14 @@ public class UserDto {
     public void setEmail(String email) { this.email = email; }
     public String getProfilePicture() { return profilePicture; }
     public void setProfilePicture(String profilePicture) { this.profilePicture = profilePicture; }
+    public String getUpiId() { return upiId; }
+    public void setUpiId(String upiId) { this.upiId = upiId; }
+    public boolean isHasUpiQr() { return hasUpiQr; }
+    public void setHasUpiQr(boolean hasUpiQr) { this.hasUpiQr = hasUpiQr; }
+    public boolean isPaymentSetupComplete() { return paymentSetupComplete; }
+    public void setPaymentSetupComplete(boolean paymentSetupComplete) { this.paymentSetupComplete = paymentSetupComplete; }
+    public boolean isPaymentSetupDismissed() { return paymentSetupDismissed; }
+    public void setPaymentSetupDismissed(boolean paymentSetupDismissed) { this.paymentSetupDismissed = paymentSetupDismissed; }
     public Instant getCreatedAt() { return createdAt; }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 }

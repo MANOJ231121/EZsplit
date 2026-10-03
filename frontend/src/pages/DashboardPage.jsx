@@ -136,7 +136,7 @@ export default function DashboardPage() {
               <h2 className="font-extrabold text-lg text-slate-900">Active Groups</h2>
               <button
                 onClick={() => navigate('/groups')}
-                className="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1"
+                className="min-h-touch px-2 -mr-2 text-xs font-bold text-brand-600 hover:text-brand-700 active:bg-brand-50 rounded-lg flex items-center gap-1"
               >
                 <span>View all</span>
                 <ChevronRight className="w-4 h-4" />
@@ -149,7 +149,7 @@ export default function DashboardPage() {
                 <p className="text-sm font-semibold text-slate-600">No active groups yet</p>
                 <button
                   onClick={() => navigate('/groups')}
-                  className="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800"
+                  className="min-h-touch px-4 rounded-xl bg-slate-900 active:bg-slate-800 text-white text-xs font-bold"
                 >
                   Create Group
                 </button>
@@ -162,21 +162,21 @@ export default function DashboardPage() {
                     onClick={() => navigate(`/groups/${group.id}`)}
                     className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-soft hover:shadow-md cursor-pointer transition-all flex items-center justify-between group"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-slate-900 to-slate-700 text-white flex items-center justify-center font-black text-sm">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-slate-900 to-slate-700 text-white flex items-center justify-center font-black text-sm flex-shrink-0">
                         {group.name.substring(0, 2).toUpperCase()}
                       </div>
-                      <div>
-                        <h3 className="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition-colors">
+                      <div className="min-w-0">
+                        <h3 className="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition-colors truncate">
                           {group.name}
                         </h3>
-                        <p className="text-xs text-slate-400 font-medium">
+                        <p className="text-xs text-slate-400 font-medium truncate">
                           {group.members?.length || 0} members • ₹{group.totalExpenses || 0} total
                         </p>
                       </div>
                     </div>
 
-                    <div className="text-right">
+                    <div className="text-right flex-shrink-0 pl-2">
                       <span className={`text-xs font-extrabold ${
                         (group.myBalance || 0) > 0
                           ? 'text-brand-600'
@@ -203,7 +203,7 @@ export default function DashboardPage() {
               <h2 className="font-extrabold text-lg text-slate-900">Recent Expenses</h2>
               <button
                 onClick={() => navigate('/activity')}
-                className="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1"
+                className="min-h-touch px-2 -mr-2 text-xs font-bold text-brand-600 hover:text-brand-700 active:bg-brand-50 rounded-lg flex items-center gap-1"
               >
                 <span>Full history</span>
                 <ChevronRight className="w-4 h-4" />
@@ -230,31 +230,31 @@ export default function DashboardPage() {
                       key={expense.id}
                       className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-soft flex items-center justify-between hover:border-slate-300 transition-all"
                     >
-                      <div className="flex items-center gap-3.5">
-                        <div className={`w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-sm ${
+                      <div className="flex items-center gap-3.5 min-w-0 flex-1">
+                        <div className={`w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-sm flex-shrink-0 ${
                           isPayer ? 'bg-cyan-50 text-brand-600' : 'bg-red-50 text-red-500'
                         }`}>
                           {isPayer ? <ArrowUpRight className="w-5 h-5 stroke-[2.5]" /> : <ArrowDownLeft className="w-5 h-5 stroke-[2.5]" />}
                         </div>
 
-                        <div>
-                          <h4 className="font-bold text-sm text-slate-900">{expense.description}</h4>
-                          <p className="text-xs text-slate-400 font-medium">
+                        <div className="min-w-0">
+                          <h4 className="font-bold text-sm text-slate-900 truncate">{expense.description}</h4>
+                          <p className="text-xs text-slate-400 font-medium truncate">
                             {isPayer ? 'You paid' : `${expense.paidBy?.name || 'Someone'} paid`} ₹{expense.amount}
                             {expense.groupName && ` • ${expense.groupName}`}
                           </p>
                         </div>
                       </div>
 
-                      <div className="text-right">
-                        <span className={`text-xs font-bold block ${
+                      <div className="text-right flex-shrink-0 pl-2">
+                        <span className={`text-xs font-bold block whitespace-nowrap ${
                           isPayer ? 'text-brand-600' : 'text-red-500'
                         }`}>
                           {isPayer
                             ? `you lent ₹${(expense.amount - myAmount).toFixed(2)}`
                             : `you borrowed ₹${myAmount.toFixed(2)}`}
                         </span>
-                        <span className="text-[10px] text-slate-400 font-medium">
+                        <span className="text-[11px] text-slate-400 font-medium">
                           {new Date(expense.createdAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
                         </span>
                       </div>

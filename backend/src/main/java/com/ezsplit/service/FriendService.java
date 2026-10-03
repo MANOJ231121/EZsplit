@@ -165,7 +165,8 @@ public class FriendService {
 
         List<User> friends = userRepository.findByIdIn(friendIds);
         List<Expense> userExpenses = expenseRepository.findByPaidByOrParticipantsUserIdOrderByDateDesc(currentUserId, currentUserId);
-        List<Settlement> userSettlements = settlementRepository.findByFromUserIdOrToUserIdOrderByCreatedAtDesc(currentUserId, currentUserId);
+        List<Settlement> userSettlements = com.ezsplit.service.SettlementService.confirmedOnly(
+                settlementRepository.findByFromUserIdOrToUserIdOrderByCreatedAtDesc(currentUserId, currentUserId));
 
         List<FriendDto> friendDtos = new ArrayList<>();
 

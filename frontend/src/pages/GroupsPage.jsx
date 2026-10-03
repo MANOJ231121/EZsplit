@@ -42,7 +42,7 @@ export default function GroupsPage() {
 
           <button
             onClick={() => setIsCreateModalOpen(true)}
-            className="py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-md active:scale-95 transition-all"
+            className="min-h-touch px-4 rounded-xl bg-slate-900 active:bg-slate-800 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all"
           >
             <Plus className="w-4 h-4" />
             <span>Create Group</span>
@@ -63,7 +63,7 @@ export default function GroupsPage() {
             </p>
             <button
               onClick={() => setIsCreateModalOpen(true)}
-              className="px-5 py-2.5 rounded-xl bg-brand-500 text-white font-bold text-xs hover:bg-brand-600 shadow-brand-glow"
+              className="min-h-touch px-5 rounded-xl bg-brand-500 text-white font-bold text-xs active:bg-brand-600 shadow-brand-glow"
             >
               Create Group
             </button>
@@ -80,22 +80,22 @@ export default function GroupsPage() {
                   onClick={() => navigate(`/groups/${group.id}`)}
                   className="p-5 rounded-3xl bg-white border border-slate-200/80 shadow-soft hover:shadow-xl hover:border-brand-200 transition-all cursor-pointer flex flex-col justify-between group space-y-4"
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-teal-500 text-white flex items-center justify-center font-black text-base shadow-brand-glow">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-teal-500 text-white flex items-center justify-center font-black text-base shadow-brand-glow flex-shrink-0">
                         {group.name.substring(0, 2).toUpperCase()}
                       </div>
-                      <div>
-                        <h3 className="font-extrabold text-base text-slate-900 group-hover:text-brand-600 transition-colors">
+                      <div className="min-w-0">
+                        <h3 className="font-extrabold text-base text-slate-900 group-hover:text-brand-600 transition-colors truncate">
                           {group.name}
                         </h3>
-                        <p className="text-xs text-slate-400 font-medium">
+                        <p className="text-xs text-slate-400 font-medium truncate">
                           {group.category || 'Trip'} • {group.members?.length || 0} members
                         </p>
                       </div>
                     </div>
 
-                    <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-brand-600 group-hover:translate-x-1 transition-all" />
+                    <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-brand-600 flex-shrink-0" />
                   </div>
 
                   {group.description && (
@@ -104,12 +104,12 @@ export default function GroupsPage() {
 
                   <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total Expenses</span>
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Total Expenses</span>
                       <span className="text-sm font-extrabold text-slate-800">₹{group.totalExpenses}</span>
                     </div>
 
                     <div className="text-right">
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Your Balance</span>
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Your Balance</span>
                       <span className={`text-sm font-black ${
                         isOwed ? 'text-brand-600' : isOwes ? 'text-red-500' : 'text-slate-400'
                       }`}>

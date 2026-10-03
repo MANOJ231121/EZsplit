@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import AddFriendModal from '../components/AddFriendModal';
 import SettleUpModal from '../components/SettleUpModal';
+import PendingIncomingCard from '../components/PendingIncomingCard';
 import api from '../services/api';
 import { Search, UserPlus, Check, X, ArrowRight, ShieldCheck, ChevronRight } from 'lucide-react';
 
@@ -76,12 +77,14 @@ export default function FriendsPage() {
       <Navbar title="Friends" />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 pt-6 space-y-6">
+        <PendingIncomingCard onChanged={fetchFriendsAndRequests} />
+
         {/* Friends Header */}
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Friends</h1>
           <button
             onClick={() => setIsAddFriendOpen(true)}
-            className="py-2.5 px-4 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-brand-glow active:scale-95 transition-all"
+            className="min-h-touch px-4 rounded-xl bg-brand-500 active:bg-brand-600 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-brand-glow active:scale-95 transition-all"
           >
             <UserPlus className="w-4 h-4" />
             <span>Add Friends</span>
@@ -115,30 +118,31 @@ export default function FriendsPage() {
             </h3>
             <div className="space-y-2">
               {requests.map((req) => (
-                <div key={req.id} className="flex items-center justify-between p-2.5 bg-white rounded-xl border border-amber-100">
-                  <div className="flex items-center gap-3">
+                <div key={req.id} className="flex items-center justify-between gap-3 p-2.5 bg-white rounded-xl border border-amber-100">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
                     <img
                       src={req.sender?.profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${req.sender?.name}`}
                       alt={req.sender?.name}
-                      className="w-8 h-8 rounded-full border border-slate-200"
+                      className="w-8 h-8 rounded-full border border-slate-200 flex-shrink-0"
                     />
-                    <div>
-                      <p className="text-sm font-bold text-slate-900">{req.sender?.name}</p>
-                      <p className="text-xs text-slate-400">{req.sender?.email}</p>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-slate-900 truncate">{req.sender?.name}</p>
+                      <p className="text-xs text-slate-400 truncate">{req.sender?.email}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-shrink-0">
                     <button
                       onClick={() => handleAcceptRequest(req.id)}
-                      className="p-1.5 rounded-lg bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold flex items-center gap-1"
+                      className="min-h-touch px-3 rounded-lg bg-brand-500 active:bg-brand-600 text-white text-xs font-bold flex items-center gap-1"
                     >
                       <Check className="w-4 h-4" />
                       <span>Accept</span>
                     </button>
                     <button
                       onClick={() => handleRejectRequest(req.id)}
-                      className="p-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold"
+                      aria-label="Reject request"
+                      className="min-w-touch min-h-touch rounded-lg bg-slate-200 active:bg-slate-300 text-slate-700 text-xs font-bold flex items-center justify-center"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -157,7 +161,8 @@ export default function FriendsPage() {
             placeholder="Search friends by name or email..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-11 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-white text-sm font-semibold focus:ring-2 focus:ring-brand-500 outline-none shadow-soft"
+            aria-label="Search friends"
+            className="w-full h-12 pl-11 pr-4 rounded-2xl border border-slate-200 bg-white text-base font-semibold focus:ring-2 focus:ring-brand-500 outline-none shadow-soft"
           />
         </div>
 
@@ -177,7 +182,7 @@ export default function FriendsPage() {
             </p>
             <button
               onClick={() => setIsAddFriendOpen(true)}
-              className="px-5 py-2.5 rounded-xl bg-brand-500 text-white font-bold text-xs hover:bg-brand-600 shadow-brand-glow"
+              className="min-h-touch px-5 rounded-xl bg-brand-500 text-white font-bold text-xs active:bg-brand-600 shadow-brand-glow"
             >
               Add Friend
             </button>
@@ -194,24 +199,24 @@ export default function FriendsPage() {
                   key={friend.id}
                   className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-soft hover:shadow-md transition-all flex items-center justify-between group"
                 >
-                  <div className="flex items-center gap-3.5">
+                  <div className="flex items-center gap-3.5 min-w-0 flex-1">
                     <img
                       src={friend.profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${friend.name}`}
                       alt={friend.name}
-                      className="w-12 h-12 rounded-full border border-slate-200 object-cover"
+                      className="w-12 h-12 rounded-full border border-slate-200 object-cover flex-shrink-0"
                     />
 
-                    <div>
-                      <h3 className="font-bold text-base text-slate-900 group-hover:text-brand-600 transition-colors">
+                    <div className="min-w-0">
+                      <h3 className="font-bold text-base text-slate-900 group-hover:text-brand-600 transition-colors truncate">
                         {friend.name}
                       </h3>
-                      <p className="text-xs text-slate-400 font-medium">{friend.email}</p>
+                      <p className="text-xs text-slate-400 font-medium truncate">{friend.email}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3 flex-shrink-0 pl-2">
                     <div className="text-right">
-                      <span className={`text-xs font-bold block ${
+                      <span className={`text-xs font-bold block whitespace-nowrap ${
                         isOwed ? 'text-brand-600 font-extrabold' : isOwes ? 'text-red-500 font-extrabold' : 'text-slate-400'
                       }`}>
                         {friend.statusText}
@@ -221,7 +226,7 @@ export default function FriendsPage() {
                     {!isSettled && (
                       <button
                         onClick={() => setSelectedFriendForSettle(friend)}
-                        className="py-1.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-sm"
+                        className="min-h-touch px-3 rounded-xl bg-slate-900 active:bg-slate-800 text-white text-xs font-bold transition-all shadow-sm"
                       >
                         Settle up
                       </button>
@@ -248,7 +253,8 @@ export default function FriendsPage() {
         targetFriend={selectedFriendForSettle}
         defaultAmount={selectedFriendForSettle ? Math.abs(selectedFriendForSettle.balance).toString() : ''}
         onSettled={() => {
-          setSelectedFriendForSettle(null);
+          // Keep the modal open so the payer sees the "waiting for confirmation"
+          // state; it closes itself via Done.
           fetchFriendsAndRequests();
         }}
       />

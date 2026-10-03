@@ -49,7 +49,7 @@ export default function AddFriendModal({ isOpen, onClose, onRequestSent }) {
             <UserPlus className="w-6 h-6" />
             <h2 className="font-bold text-lg">Add a Friend</h2>
           </div>
-          <button onClick={onClose} className="p-1.5 rounded-full hover:bg-white/20 transition-colors">
+          <button onClick={onClose} className="min-w-touch min-h-touch flex items-center justify-center rounded-full active:bg-white/20 transition-colors" aria-label="Close">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -81,7 +81,7 @@ export default function AddFriendModal({ isOpen, onClose, onRequestSent }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-900 focus:ring-2 focus:ring-brand-500 outline-none"
+                className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 text-base font-semibold text-slate-900 focus:ring-2 focus:ring-brand-500 outline-none"
               />
             </div>
             <p className="text-xs text-slate-500 mt-1.5">

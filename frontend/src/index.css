@@ -3,9 +3,82 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    /* Stop iOS inflating text in landscape, which breaks fixed layouts. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-tap-highlight-color: transparent;
+    /* Stop rubber-band scrolling from revealing the white behind the app. */
+    overscroll-behavior-y: none;
+  }
+
+  /* Long unbroken strings (emails, IDs) must not force a horizontal scroll. */
+  p, h1, h2, h3, h4, h5, h6, span, div, li, td, th {
+    overflow-wrap: break-word;
+  }
+
+  /* Remove the 300ms tap delay without killing click handlers. */
+  button,
+  a,
+  label,
+  [role='button'] {
+    touch-action: manipulation;
+  }
+
+  /* Keyboard focus should be visible for keyboard/switch users. */
+  :focus-visible {
+    outline: 2px solid #0891b2;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /*
+   * `min-w-0` is built into Tailwind and is what actually lets a flex child
+   * shrink below its content width. Documented here because this is the single
+   * most common cause of the "long name shoves the row off screen" bug:
+   * every truncating text node inside a flex row needs it on an ancestor.
+   */
+}
+
+@layer utilities {
+  /*
+   * Tailwind's `min-h-screen` / `h-screen` resolve to 100vh, which on mobile
+   * includes the strip behind the URL bar. That produces a phantom scroll and
+   * can hide the last row under the browser chrome. 100dvh tracks the real
+   * visible viewport; the vh line stays as a fallback for older engines.
+   *
+   * These re-declare the core utilities inside @layer utilities so they sort
+   * after Tailwind's own output and win without needing !important.
+   */
+  .min-h-screen {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .h-screen {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  /* Padding that respects the notch on the left/right in landscape. */
+  .px-safe {
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  /* Horizontal tab strips scroll but should not draw a scrollbar. */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -32,9 +105,19 @@
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
-.dark-glass-card {
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/*
+ * iOS Safari zooms the entire page when a focused field renders below 16px,
+ * leaving the user stranded at a magnified viewport after typing.
+ *
+ * This rule is deliberately UNLAYERED. Tailwind emits `base`/`components`/
+ * `utilities` as real CSS cascade layers, and unlayered declarations always
+ * win over layered ones. Inside @layer base this would be silently overridden
+ * by any `text-[15px]` utility on an input — i.e. the exact case it exists
+ * to prevent. Do not move this into a @layer block.
+ */
+input,
+textarea,
+select,
+option {
+  font-size: max(16px, 1em);
 }

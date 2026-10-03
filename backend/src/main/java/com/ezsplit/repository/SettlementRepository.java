@@ -11,4 +11,6 @@ public interface SettlementRepository extends MongoRepository<Settlement, String
     List<Settlement> findByGroupId(String groupId);
     List<Settlement> findByFromUserIdOrToUserIdOrderByCreatedAtDesc(String fromUserId, String toUserId);
     List<Settlement> findByGroupIdInOrderByCreatedAtDesc(List<String> groupIds);
+    List<Settlement> findByToUserIdAndStatusOrderByCreatedAtDesc(String toUserId, String status);
+    List<Settlement> findByFromUserIdAndStatusOrderByCreatedAtDesc(String fromUserId, String status);
 }

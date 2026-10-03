@@ -13,9 +13,11 @@ import GroupsPage from './pages/GroupsPage';
 import GroupDetailPage from './pages/GroupDetailPage';
 import ActivityPage from './pages/ActivityPage';
 import AccountPage from './pages/AccountPage';
+import PaymentSetupPage from './pages/PaymentSetupPage';
 
 function ProtectedRoute({ children }) {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, user } = useAuth();
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -32,6 +34,16 @@ function ProtectedRoute({ children }) {
     return <Navigate to="/login" replace />;
   }
 
+  // First-login nudge towards payment setup. Skippable, and never shown again
+  // once the user either finishes setup or dismisses it.
+  const needsSetup =
+    !user?.paymentSetupComplete && !user?.paymentSetupDismissed;
+  const isSetupPage = location.pathname === '/setup';
+
+  if (needsSetup && !isSetupPage) {
+    return <Navigate to="/setup" replace />;
+  }
+
   return children;
 }
 
@@ -41,11 +53,13 @@ export default function App() {
   const [isAddExpenseOpen, setIsAddExpenseOpen] = useState(false);
 
   const isLoginPage = location.pathname === '/login';
+  const isSetupPage = location.pathname === '/setup';
+  const showAppChrome = isAuthenticated && !isLoginPage && !isSetupPage;
 
   return (
     <div className="min-h-screen flex bg-slate-50">
       {/* Desktop Sidebar */}
-      {isAuthenticated && !isLoginPage && (
+      {showAppChrome && (
         <Sidebar onOpenAddExpense={() => setIsAddExpenseOpen(true)} />
       )}
 
@@ -53,6 +67,14 @@ export default function App() {
       <div className="flex-1 min-w-0">
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/setup"
+            element={
+              <ProtectedRoute>
+                <PaymentSetupPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/dashboard"
             element={
@@ -106,12 +128,12 @@ export default function App() {
       </div>
 
       {/* Mobile Bottom Navbar */}
-      {isAuthenticated && !isLoginPage && (
+      {showAppChrome && (
         <BottomNavigation onOpenAddExpense={() => setIsAddExpenseOpen(true)} />
       )}
 
       {/* Global Add Expense Modal */}
-      {isAuthenticated && !isLoginPage && (
+      {showAppChrome && (
         <AddExpenseModal
           isOpen={isAddExpenseOpen}
           onClose={() => setIsAddExpenseOpen(false)}

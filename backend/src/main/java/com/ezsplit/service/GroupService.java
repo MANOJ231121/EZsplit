@@ -136,7 +136,8 @@ public class GroupService {
         List<UserDto> memberDtos = memberUsers.stream().map(UserDto::new).collect(Collectors.toList());
 
         List<Expense> groupExpenses = expenseRepository.findByGroupIdOrderByDateDesc(group.getId());
-        List<Settlement> groupSettlements = settlementRepository.findByGroupId(group.getId());
+        List<Settlement> groupSettlements = SettlementService.confirmedOnly(
+                settlementRepository.findByGroupId(group.getId()));
 
         BigDecimal totalExpenses = groupExpenses.stream()
                 .map(Expense::getAmount)

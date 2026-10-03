@@ -22,6 +22,12 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    // Let the browser set multipart/form-data with its boundary. The instance
+    // default above is JSON, which would otherwise strip the boundary and the
+    // server would fail to parse the QR upload.
+    if (typeof FormData !== 'undefined' && config.data instanceof FormData) {
+      delete config.headers['Content-Type'];
+    }
     return config;
   },
   (error) => Promise.reject(error)

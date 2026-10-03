@@ -17,6 +17,9 @@ public class Settlement {
     private String toUserId; // Person receiving payment
     private BigDecimal amount;
     private String note;
+    private String status = "CONFIRMED";
+    private Instant confirmedAt;
+    private String paymentRef;
     private Instant createdAt = Instant.now();
 
     public Settlement() {}
@@ -84,5 +87,29 @@ public class Settlement {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Instant getConfirmedAt() {
+        return confirmedAt;
+    }
+
+    public void setConfirmedAt(Instant confirmedAt) {
+        this.confirmedAt = confirmedAt;
+    }
+
+    public String getPaymentRef() {
+        return paymentRef;
+    }
+
+    public void setPaymentRef(String paymentRef) {
+        this.paymentRef = paymentRef;
     }
 }

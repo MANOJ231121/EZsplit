@@ -7,12 +7,14 @@ import com.ezsplit.exception.BadRequestException;
 import com.ezsplit.exception.ResourceNotFoundException;
 import com.ezsplit.model.*;
 import com.ezsplit.model.enums.ActivityType;
+import com.ezsplit.model.enums.SettlementStatus;
 import com.ezsplit.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,13 +51,15 @@ public class SettlementService {
         User toUser = userRepository.findById(toUserId)
                 .orElseThrow(() -> new ResourceNotFoundException("Recipient user not found"));
 
-        Settlement settlement = new Settlement(
+Settlement settlement = new Settlement(
                 req.getGroupId(),
                 fromUserId,
                 toUserId,
                 req.getAmount().setScale(2, RoundingMode.HALF_UP),
                 req.getNote() != null ? req.getNote() : "Payment settlement"
         );
+        settlement.setStatus(SettlementStatus.PENDING.name());
+        settlement.setPaymentRef("EZSP" + System.currentTimeMillis());
 
         Settlement saved = settlementRepository.save(settlement);
 
@@ -63,12 +67,83 @@ public class SettlementService {
                 Arrays.asList(fromUserId, toUserId),
                 currentUserId,
                 ActivityType.SETTLEMENT_CREATED,
-                "Settled Up",
-                fromUser.getName() + " paid " + toUser.getName() + " ₹" + saved.getAmount(),
+                "Payment sent",
+                fromUser.getName() + " sent " + toUser.getName() + " ?" + saved.getAmount(),
                 saved.getId()
         );
 
         return convertToDto(saved);
+    }
+
+    public SettlementDto confirmSettlement(String currentUserId, String settlementId) {
+        Settlement settlement = settlementRepository.findById(settlementId)
+                .orElseThrow(() -> new ResourceNotFoundException("Settlement not found"));
+
+        if (!settlement.getToUserId().equals(currentUserId)) {
+            throw new BadRequestException("Only the person receiving the money can confirm it");
+        }
+        if (!SettlementStatus.PENDING.name().equals(settlement.getStatus())) {
+            throw new BadRequestException("This payment has already been " + settlement.getStatus().toLowerCase());
+        }
+
+        settlement.setStatus(SettlementStatus.CONFIRMED.name());
+        settlement.setConfirmedAt(Instant.now());
+        Settlement saved = settlementRepository.save(settlement);
+
+        User fromUser = userRepository.findById(saved.getFromUserId()).orElse(null);
+        User toUser = userRepository.findById(saved.getToUserId()).orElse(null);
+
+        activityService.logActivity(
+                Arrays.asList(saved.getFromUserId(), saved.getToUserId()),
+                currentUserId,
+                ActivityType.SETTLEMENT_CONFIRMED,
+                "Payment received",
+                (fromUser != null ? fromUser.getName() : "Someone") + " paid "
+                        + (toUser != null ? toUser.getName() : "you") + " ?" + saved.getAmount(),
+                saved.getId()
+        );
+
+        return convertToDto(saved);
+    }
+
+    public SettlementDto cancelSettlement(String currentUserId, String settlementId) {
+        Settlement settlement = settlementRepository.findById(settlementId)
+                .orElseThrow(() -> new ResourceNotFoundException("Settlement not found"));
+
+        if (!settlement.getFromUserId().equals(currentUserId)) {
+            throw new BadRequestException("Only the person who sent the payment can cancel it");
+        }
+        if (!SettlementStatus.PENDING.name().equals(settlement.getStatus())) {
+            throw new BadRequestException("Only a pending payment can be cancelled");
+        }
+
+        settlement.setStatus(SettlementStatus.CANCELLED.name());
+        return convertToDto(settlementRepository.save(settlement));
+    }
+
+    public List<SettlementDto> getPendingIncoming(String currentUserId) {
+        return settlementRepository.findByToUserIdAndStatusOrderByCreatedAtDesc(
+                        currentUserId, SettlementStatus.PENDING.name()).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<SettlementDto> getPendingOutgoing(String currentUserId) {
+        return settlementRepository.findByFromUserIdAndStatusOrderByCreatedAtDesc(
+                        currentUserId, SettlementStatus.PENDING.name()).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    public static boolean isCounted(Settlement settlement) {
+        if (settlement == null) return false;
+        String status = settlement.getStatus();
+        return status == null || SettlementStatus.CONFIRMED.name().equals(status);
+    }
+
+    public static List<Settlement> confirmedOnly(List<Settlement> settlements) {
+        if (settlements == null) return new java.util.ArrayList<>();
+        return settlements.stream().filter(SettlementService::isCounted).collect(Collectors.toList());
     }
 
     public List<SettlementDto> getUserSettlements(String currentUserId) {
@@ -94,6 +169,9 @@ public class SettlementService {
 
         dto.setAmount(s.getAmount());
         dto.setNote(s.getNote());
+        dto.setStatus(s.getStatus() == null ? SettlementStatus.CONFIRMED.name() : s.getStatus());
+        dto.setPaymentRef(s.getPaymentRef());
+        dto.setConfirmedAt(s.getConfirmedAt());
         dto.setCreatedAt(s.getCreatedAt());
 
         return dto;

@@ -72,7 +72,7 @@ export default function CreateGroupModal({ isOpen, onClose, onGroupCreated }) {
             <Users className="w-6 h-6 text-brand-400" />
             <h2 className="font-bold text-lg">Create New Group</h2>
           </div>
-          <button onClick={onClose} className="p-1.5 rounded-full hover:bg-white/20 transition-colors">
+          <button onClick={onClose} className="min-w-touch min-h-touch flex items-center justify-center rounded-full active:bg-white/20 transition-colors" aria-label="Close">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -95,7 +95,7 @@ export default function CreateGroupModal({ isOpen, onClose, onGroupCreated }) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-base font-semibold focus:ring-2 focus:ring-brand-500 outline-none"
             />
           </div>
 
@@ -107,7 +107,7 @@ export default function CreateGroupModal({ isOpen, onClose, onGroupCreated }) {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm font-medium focus:ring-2 focus:ring-brand-500 outline-none"
+                className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-base font-medium focus:ring-2 focus:ring-brand-500 outline-none"
               >
                 <option value="Trip">Trip / Vacation</option>
                 <option value="Home">Home / Apartment</option>
@@ -126,7 +126,7 @@ export default function CreateGroupModal({ isOpen, onClose, onGroupCreated }) {
                 placeholder="4 day trip with friends"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-brand-500 outline-none"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-base font-medium focus:ring-2 focus:ring-brand-500 outline-none"
               />
             </div>
           </div>

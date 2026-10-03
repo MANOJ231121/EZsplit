@@ -90,31 +90,31 @@ export default function GroupDetailPage() {
         <div className="max-w-4xl mx-auto space-y-4">
           <button
             onClick={() => navigate('/groups')}
-            className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition-colors"
+            className="min-h-touch -ml-1 px-1 flex items-center gap-2 text-xs font-bold text-slate-400 active:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>All Groups</span>
           </button>
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-brand-600 to-cyan-400 text-white flex items-center justify-center font-black text-2xl shadow-brand-glow">
+            <div className="flex items-center gap-4 min-w-0">
+              <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-brand-600 to-cyan-400 text-white flex items-center justify-center font-black text-2xl shadow-brand-glow flex-shrink-0">
                 {group.name.substring(0, 2).toUpperCase()}
               </div>
-              <div>
-                <h1 className="text-2xl sm:text-3xl font-black tracking-tight">{group.name}</h1>
-                <p className="text-xs text-slate-400 font-medium">{group.description || `${group.members?.length} members`}</p>
+              <div className="min-w-0">
+                <h1 className="text-2xl sm:text-3xl font-black tracking-tight truncate">{group.name}</h1>
+                <p className="text-xs text-slate-400 font-medium truncate">{group.description || `${group.members?.length} members`}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-6 bg-slate-800/80 p-3.5 rounded-2xl border border-slate-700">
+            <div className="flex items-center gap-6 bg-slate-800/80 p-3.5 rounded-2xl border border-slate-700 self-start sm:self-auto">
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total Expenses</span>
+                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Total Expenses</span>
                 <span className="text-base font-extrabold text-white">₹{group.totalExpenses}</span>
               </div>
               <div className="w-px h-8 bg-slate-700" />
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Your Balance</span>
+                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Your Balance</span>
                 <span className={`text-base font-black ${
                   isOwed ? 'text-brand-400' : isOwes ? 'text-red-400' : 'text-slate-400'
                 }`}>
@@ -129,28 +129,29 @@ export default function GroupDetailPage() {
       {/* Main Content Area */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 -mt-6 space-y-6">
         {/* Navigation & Action Bar matching reference image */}
-        <div className="p-2 rounded-2xl bg-white border border-slate-200/80 shadow-lg flex items-center justify-between gap-2 overflow-x-auto">
-          <div className="flex items-center gap-1">
+        <div className="p-2 rounded-2xl bg-white border border-slate-200/80 shadow-lg flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          {/* Tabs scroll sideways instead of pushing the action button off-screen */}
+          <div className="flex items-center gap-1 overflow-x-auto no-scrollbar -mx-1 px-1">
             <button
               onClick={() => setActiveTab('expenses')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                activeTab === 'expenses' ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
+              className={`min-h-touch px-4 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+                activeTab === 'expenses' ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-600 active:bg-slate-100'
               }`}
             >
               Expenses
             </button>
             <button
               onClick={() => setActiveTab('balances')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                activeTab === 'balances' ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
+              className={`min-h-touch px-4 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+                activeTab === 'balances' ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-600 active:bg-slate-100'
               }`}
             >
               Balances & Debts
             </button>
             <button
               onClick={() => setActiveTab('members')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                activeTab === 'members' ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
+              className={`min-h-touch px-4 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+                activeTab === 'members' ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-600 active:bg-slate-100'
               }`}
             >
               Members ({group.members?.length})
@@ -159,7 +160,7 @@ export default function GroupDetailPage() {
 
           <button
             onClick={() => setIsAddExpenseOpen(true)}
-            className="py-2 px-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-brand-glow active:scale-95 transition-all flex-shrink-0"
+            className="min-h-touch w-full sm:w-auto px-3.5 rounded-xl bg-brand-500 active:bg-brand-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-brand-glow active:scale-95 transition-all flex-shrink-0"
           >
             <Plus className="w-4 h-4 stroke-[3]" />
             <span>Add Expense</span>
@@ -191,7 +192,7 @@ export default function GroupDetailPage() {
                     <div className="flex items-center gap-3.5">
                       {/* Date Badge */}
                       <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200/80 flex flex-col items-center justify-center text-center">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase">
+                        <span className="text-[11px] font-bold text-slate-400 uppercase">
                           {new Date(expense.createdAt).toLocaleDateString('en-IN', { month: 'short' })}
                         </span>
                         <span className="text-sm font-black text-slate-800 leading-none">
@@ -221,9 +222,10 @@ export default function GroupDetailPage() {
                       {(isPayer || expense.createdBy?.id === user.id) && (
                         <button
                           onClick={() => handleDeleteExpense(expense.id)}
-                          className="p-2 text-slate-400 hover:text-red-500 rounded-lg hover:bg-red-50 transition-colors"
-                          title="Delete expense"
-                        >
+className="min-w-touch min-h-touch flex items-center justify-center text-slate-400 active:text-red-500 rounded-lg active:bg-red-50 transition-colors"
+            title="Delete expense"
+            aria-label="Delete expense"
+          >
                           <Trash2 className="w-4 h-4" />
                         </button>
                       )}
@@ -287,7 +289,7 @@ export default function GroupDetailPage() {
                               });
                               setIsSettleModalOpen(true);
                             }}
-                            className="py-1.5 px-3 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800"
+                            className="min-h-touch px-3 rounded-xl bg-slate-900 active:bg-slate-800 text-white text-xs font-bold"
                           >
                             Settle
                           </button>
@@ -354,7 +356,7 @@ export default function GroupDetailPage() {
                   </div>
 
                   {m.id === group.createdBy && (
-                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">
                       Group Admin
                     </span>
                   )}

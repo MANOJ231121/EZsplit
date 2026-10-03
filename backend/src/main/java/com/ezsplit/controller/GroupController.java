@@ -9,6 +9,7 @@ import com.ezsplit.repository.GroupRepository;
 import com.ezsplit.repository.SettlementRepository;
 import com.ezsplit.security.UserPrincipal;
 import com.ezsplit.service.GroupService;
+import com.ezsplit.service.SettlementService;
 import com.ezsplit.service.SettlementEngineService;
 import com.ezsplit.service.SettlementService;
 import jakarta.validation.Valid;
@@ -91,7 +92,7 @@ public class GroupController {
         Group group = groupRepository.findById(id).orElseThrow();
 
         List<Expense> expenses = expenseRepository.findByGroupIdOrderByDateDesc(id);
-        List<Settlement> settlements = settlementRepository.findByGroupId(id);
+        List<Settlement> settlements = SettlementService.confirmedOnly(settlementRepository.findByGroupId(id));
 
         GroupBalanceDto balances = settlementEngineService.calculateBalancesAndSettlements(
                 group.getMemberIds(), expenses, settlements);

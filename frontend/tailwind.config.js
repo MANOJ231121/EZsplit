@@ -46,14 +46,41 @@ export default {
       scale: {
         98: '0.98',
       },
+      // Device safe areas (notch / home indicator / rounded corners in landscape).
+      spacing: {
+        'safe-t': 'env(safe-area-inset-top, 0px)',
+        'safe-b': 'env(safe-area-inset-bottom, 0px)',
+        'safe-l': 'env(safe-area-inset-left, 0px)',
+        'safe-r': 'env(safe-area-inset-right, 0px)',
+      },
+      // Minimum comfortable thumb target (Apple HIG 44pt / Material 48dp).
+      minHeight: {
+        touch: '44px',
+      },
+      minWidth: {
+        touch: '44px',
+      },
       keyframes: {
         'fade-up': {
           '0%': { opacity: '0', transform: 'translateY(8px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        'sheet-up': {
+          '0%': { transform: 'translateY(100%)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
       animation: {
         'fade-up': 'fade-up 0.35s ease-out both',
+        'sheet-up': 'sheet-up 0.28s cubic-bezier(0.32, 0.72, 0, 1) both',
+        'fade-in': 'fade-in 0.2s ease-out both',
+      },
+      transitionTimingFunction: {
+        spring: 'cubic-bezier(0.32, 0.72, 0, 1)',
       },
     },
   },

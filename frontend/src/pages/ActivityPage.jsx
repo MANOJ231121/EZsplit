@@ -81,7 +81,7 @@ export default function ActivityPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
                     <h4 className="font-bold text-sm text-slate-900 truncate">{item.title}</h4>
-                    <span className="text-[10px] text-slate-400 font-medium flex items-center gap-1 flex-shrink-0">
+                    <span className="text-[11px] text-slate-400 font-medium flex items-center gap-1 flex-shrink-0">
                       <Clock className="w-3 h-3" />
                       {new Date(item.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
