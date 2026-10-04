@@ -11,7 +11,8 @@
       at 16px in index.css instead, which is what actually prevents iOS auto-zoom.
     -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#0891b2" />
+    <meta name="theme-color" content="#0891b2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)" />
     <meta name="description" content="EzSplit - split expenses with friends, roommates and travel groups. Track balances and settle debts in the fewest transactions." />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -23,6 +24,24 @@
   </head>
   <body class="bg-slate-50 text-slate-900 antialiased selection:bg-brand-500 selection:text-white">
     <div id="root"></div>
+    <script>
+      /*
+       * Runs before React mounts so night mode is already applied on the very
+       * first paint. Without this the app flashes white before switching to dark,
+       * which is very visible on a phone at night.
+       */
+      (function () {
+        try {
+          var stored = localStorage.getItem('ezsplit_theme');
+          var dark = stored === 'dark' ||
+            (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
+          }
+        } catch (e) {}
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

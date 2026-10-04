@@ -94,35 +94,39 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* You Owe Card */}
+            {/* Money you need to send out */}
             <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-soft flex flex-col justify-between">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">You Owe</span>
-                <div className="w-9 h-9 rounded-xl bg-red-50 text-red-500 flex items-center justify-center">
-                  <TrendingDown className="w-5 h-5" />
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                  You need to pay
+                </span>
+                <div className="w-9 h-9 rounded-xl bg-red-50 text-red-500 flex items-center justify-center flex-shrink-0">
+                  <ArrowUpRight className="w-5 h-5" />
                 </div>
               </div>
               <div className="mt-4">
                 <h2 className="text-3xl font-black text-red-500 tracking-tight">
                   ₹{(summary?.youOwe || 0).toLocaleString('en-IN')}
                 </h2>
-                <p className="text-xs text-slate-400 mt-1 font-medium">Money to pay friends</p>
+                <p className="text-xs text-slate-400 mt-1 font-medium">Money you owe your friends</p>
               </div>
             </div>
 
-            {/* You Are Owed Card */}
+            {/* Money coming back to you */}
             <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-soft flex flex-col justify-between">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">You Are Owed</span>
-                <div className="w-9 h-9 rounded-xl bg-cyan-50 text-brand-600 flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5" />
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                  You will get back
+                </span>
+                <div className="w-9 h-9 rounded-xl bg-cyan-50 text-brand-600 flex items-center justify-center flex-shrink-0">
+                  <ArrowDownLeft className="w-5 h-5" />
                 </div>
               </div>
               <div className="mt-4">
                 <h2 className="text-3xl font-black text-brand-600 tracking-tight">
                   ₹{(summary?.youAreOwed || 0).toLocaleString('en-IN')}
                 </h2>
-                <p className="text-xs text-slate-400 mt-1 font-medium">Money owed to you</p>
+                <p className="text-xs text-slate-400 mt-1 font-medium">Money your friends owe you</p>
               </div>
             </div>
           </div>

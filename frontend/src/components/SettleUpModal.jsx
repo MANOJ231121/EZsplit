@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
-  X, ArrowRight, CheckCircle, AlertCircle, Smartphone, QrCode, Hourglass, Trash2,
+  X, ArrowRight, CheckCircle, AlertCircle, Smartphone, QrCode, Hourglass, Trash2, Maximize2,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { formatCurrency } from '../lib/upi';
+import QrZoom from './QrZoom';
 import api from '../services/api';
 
 export default function SettleUpModal({ isOpen, onClose, targetFriend, defaultAmount = '', onSettled }) {
@@ -15,6 +16,7 @@ export default function SettleUpModal({ isOpen, onClose, targetFriend, defaultAm
   const [payee, setPayee] = useState(null);
   const [payeeLoading, setPayeeLoading] = useState(false);
   const [pendingId, setPendingId] = useState(null);
+  const [qrZoomOpen, setQrZoomOpen] = useState(false);
 
   useEffect(() => {
     if (defaultAmount) setAmount(defaultAmount);
@@ -213,16 +215,26 @@ export default function SettleUpModal({ isOpen, onClose, targetFriend, defaultAm
                   </p>
                 </div>
 
-                {payee?.upiQrImage && (
+                {hasQr && (
                   <div className="flex items-center gap-4">
-                    <img
-                      src={payee.upiQrImage}
-                      alt={`${payee.name} UPI QR code`}
-                      className="w-28 h-28 object-contain rounded-xl bg-white border border-slate-200 flex-shrink-0"
-                    />
+                    <button
+                      type="button"
+                      onClick={() => setQrZoomOpen(true)}
+                      aria-label="Enlarge QR code"
+                      className="relative flex-shrink-0 rounded-xl qr-paper focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/40"
+                    >
+                      <img
+                        src={payee.upiQrImage}
+                        alt={`${payee.name} UPI QR code`}
+                        className="w-28 h-28 object-contain rounded-xl bg-white border border-slate-200"
+                      />
+                      <span className="absolute -bottom-1.5 -right-1.5 w-7 h-7 rounded-full bg-slate-900 text-white border-2 border-white flex items-center justify-center">
+                        <Maximize2 className="w-3.5 h-3.5" />
+                      </span>
+                    </button>
                     <p className="text-[11px] font-medium text-slate-600 leading-relaxed min-w-0">
-                      Scan with any UPI app, or use the button below to open your UPI app with the
-                      amount already filled in.
+                      Tap the QR to enlarge it, or use the button below to open your UPI app with
+                      the amount already filled in.
                     </p>
                   </div>
                 )}
@@ -288,6 +300,15 @@ export default function SettleUpModal({ isOpen, onClose, targetFriend, defaultAm
           </form>
         )}
       </div>
+
+      <QrZoom
+        src={payee?.upiQrImage}
+        alt={`${payee?.name || 'Payee'} UPI QR code`}
+        isOpen={qrZoomOpen}
+        onClose={() => setQrZoomOpen(false)}
+        upiId={payee?.upiId}
+        name={payee?.name}
+      />
     </div>
   );
 }

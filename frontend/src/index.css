@@ -121,3 +121,182 @@ select,
 option {
   font-size: max(16px, 1em);
 }
+
+/*
+ * Night mode
+ * ----------
+ * The app was built with literal light-mode utilities (bg-white, text-slate-900,
+ * ...), so instead of editing every component we remap those utilities under a
+ * `.dark` scope. `.dark .bg-white` has higher specificity than `.bg-white`, and
+ * being unlayered it also beats Tailwind's @layer utilities.
+ *
+ * Two rules this file must not break:
+ *   1. `text-white` is NEVER remapped. It sits on filled brand/dark buttons, so
+ *      flipping it to a dark colour is what makes button labels vanish.
+ *   2. `bg-white` on QR surfaces is preserved via `.qr-paper`, because scanners
+ *      need a light quiet zone around the code.
+ */
+.dark body {
+  background-color: #020617;
+  color: #e2e8f0;
+}
+
+/* Surfaces: white -> slate-900, slate-50 -> slate-950, and so on down the ramp. */
+.dark .bg-white,
+.dark .bg-white\/90 {
+  background-color: #0f172a;
+}
+.dark .bg-slate-50,
+.dark .bg-slate-50\/60 {
+  background-color: #020617;
+}
+.dark .bg-slate-100 {
+  background-color: #1e293b;
+}
+.dark .bg-slate-200 {
+  background-color: #334155;
+}
+.dark .bg-slate-300 {
+  background-color: #475569;
+}
+
+/* Tinted surfaces keep their hue but drop to a dark, low-chroma base. */
+.dark .bg-red-50,
+.dark .bg-red-100 {
+  background-color: rgba(239, 68, 68, 0.14);
+}
+.dark .bg-amber-50 {
+  background-color: rgba(245, 158, 11, 0.14);
+}
+.dark .bg-cyan-50,
+.dark .bg-brand-50,
+.dark .bg-brand-50\/40,
+.dark .bg-brand-50\/50,
+.dark .bg-brand-50\/60,
+.dark .bg-brand-50\/70,
+.dark .bg-brand-100\/70,
+.dark .bg-brand-500\/10,
+.dark .bg-brand-500\/20 {
+  background-color: rgba(8, 145, 178, 0.16);
+}
+
+/* Text: invert the slate ramp only. These are the lightest step that still
+   reads as "muted" while clearing WCAG AA (4.5:1) for the 11-12px labels the app
+   uses. Mapping slate-400 straight to slate-500 would pass large text only. */
+.dark .text-slate-900 {
+  color: #f1f5f9;
+}
+.dark .text-slate-800 {
+  color: #e2e8f0;
+}
+.dark .text-slate-700 {
+  color: #cbd5e1;
+}
+.dark .text-slate-600,
+.dark .text-slate-500,
+.dark .text-slate-400 {
+  color: #94a3b8;
+}
+.dark .text-slate-300,
+.dark .text-slate-200 {
+  color: #64748b;
+}
+
+/*
+ * brand/cyan/red/amber shades are picked for white backgrounds, so 600-900 all
+ * collapse into the background on a dark surface. Lift each to its 300/400
+ * equivalent rather than reusing the class, otherwise every accent number in
+ * the app silently loses contrast after dark mode is switched on.
+ */
+.dark .text-brand-700,
+.dark .text-brand-600,
+.dark .text-brand-400,
+.dark .text-cyan-800 {
+  color: #22d3ee;
+}
+.dark .text-brand-300,
+.dark .text-cyan-700 {
+  color: #67e8f9;
+}
+.dark .text-red-700,
+.dark .text-red-600,
+.dark .text-red-500,
+.dark .text-red-400 {
+  color: #fca5a5;
+}
+.dark .text-amber-900,
+.dark .text-amber-800,
+.dark .text-amber-600 {
+  color: #fcd34d;
+}
+.dark .text-amber-500 {
+  color: #fbbf24;
+}
+.dark .text-indigo-600,
+.dark .text-indigo-700,
+.dark .text-teal-600,
+.dark .text-teal-700 {
+  color: #7dd3fc;
+}
+
+/* Borders: lift just enough to separate cards from the background. */
+.dark .border-slate-100,
+.dark .border-slate-200,
+.dark .border-slate-200\/60,
+.dark .border-slate-200\/80 {
+  border-color: #334155;
+}
+.dark .border-slate-300 {
+  border-color: #475569;
+}
+.dark .border-red-200 {
+  border-color: rgba(239, 68, 68, 0.35);
+}
+.dark .border-amber-100,
+.dark .border-amber-200 {
+  border-color: rgba(245, 158, 11, 0.35);
+}
+.dark .border-cyan-100,
+.dark .border-cyan-200,
+.dark .border-brand-200,
+.dark .border-brand-300 {
+  border-color: rgba(34, 211, 238, 0.35);
+}
+
+/* Inputs must not stay bright white while the page is dark. */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #64748b;
+}
+
+/*
+ * QR codes must stay on white paper in both themes, or phone cameras refuse to
+ * decode them. Applied last so it wins over the `.dark .bg-white` remap above.
+ */
+.dark .qr-paper,
+.qr-paper {
+  background-color: #ffffff !important;
+  color: #0f172a;
+}
+.dark .qr-paper img,
+.qr-paper img {
+  background-color: #ffffff;
+}
+
+/* Scrollbars and the glass header follow the theme. */
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+.dark .glass-card {
+  background: rgba(15, 23, 42, 0.82);
+  border-color: rgba(51, 65, 85, 0.7);
+}
