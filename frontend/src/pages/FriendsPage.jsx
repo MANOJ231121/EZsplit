@@ -4,7 +4,7 @@ import AddFriendModal from '../components/AddFriendModal';
 import SettleUpModal from '../components/SettleUpModal';
 import PendingIncomingCard from '../components/PendingIncomingCard';
 import api from '../services/api';
-import { Search, UserPlus, Check, X, ArrowRight, ShieldCheck, ChevronRight } from 'lucide-react';
+import { Search, UserPlus, Check, X, ArrowRight, ArrowUpRight, ArrowDownLeft, ShieldCheck, ChevronRight } from 'lucide-react';
 
 export default function FriendsPage() {
   const [friends, setFriends] = useState([]);
@@ -91,21 +91,27 @@ export default function FriendsPage() {
           </button>
         </div>
 
-        {/* Total Balance Card inspired by reference image */}
-        <div className="p-5 rounded-3xl bg-white border border-slate-200/80 shadow-soft flex items-center justify-between">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Total balance with friends</span>
-            <div className="flex items-center gap-4 mt-1">
-              <span className="text-sm font-bold text-red-500">
-                You owe ₹{totalYouOwe.toFixed(2)}
+        {/* Total balance with friends */}
+        <div className="p-5 rounded-3xl bg-white border border-slate-200/80 shadow-soft flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block">
+              Total with friends
+            </span>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-1 mt-1.5">
+              <span className="text-sm font-bold text-red-500 flex items-center gap-1.5">
+                <ArrowUpRight className="w-4 h-4 flex-shrink-0" />
+                <span>To pay</span>
+                <span className="font-black">₹{totalYouOwe.toFixed(2)}</span>
               </span>
-              <span className="text-sm font-bold text-brand-600">
-                You are owed ₹{totalYouAreOwed.toFixed(2)}
+              <span className="text-sm font-bold text-brand-600 flex items-center gap-1.5">
+                <ArrowDownLeft className="w-4 h-4 flex-shrink-0" />
+                <span>To get</span>
+                <span className="font-black">₹{totalYouAreOwed.toFixed(2)}</span>
               </span>
             </div>
           </div>
 
-          <div className="w-10 h-10 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600">
+          <div className="w-10 h-10 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 flex-shrink-0">
             <ShieldCheck className="w-5 h-5" />
           </div>
         </div>

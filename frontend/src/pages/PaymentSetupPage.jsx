@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  User, AtSign, QrCode, ShieldCheck, Smartphone, ArrowRight, Trash2, AlertCircle,
+  User, AtSign, QrCode, ShieldCheck, Smartphone, ArrowRight, Trash2, AlertCircle, Maximize2,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { isValidUpiId } from '../lib/upi';
 import { useQrUpload } from '../lib/useQrUpload';
 import api from '../services/api';
 import EzSplitLogo from '../components/EzSplitLogo';
+import QrZoom from '../components/QrZoom';
 
 const inputClass =
   'w-full h-12 px-4 rounded-xl border border-slate-200 bg-white text-base font-semibold text-slate-900 placeholder:text-slate-400 placeholder:font-normal outline-none transition-all focus:border-brand-400 focus:ring-4 focus:ring-brand-50';
@@ -21,6 +22,7 @@ export default function PaymentSetupPage() {
   const [showErrors, setShowErrors] = useState(false);
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
+  const [qrZoomOpen, setQrZoomOpen] = useState(false);
 
   const upiProvided = upiId.trim().length > 0;
   const upiValid = !upiProvided || isValidUpiId(upiId);
@@ -171,9 +173,19 @@ export default function PaymentSetupPage() {
               </span>
             </span>
 
-            {qrPreview ? (
+            {(qrPreview) ? (
               <div className="rounded-2xl border border-slate-200 bg-white p-4 flex items-center gap-4">
-                <img src={qrPreview} alt="Your UPI QR code" className="w-24 h-24 object-contain rounded-lg" />
+                <button
+                  type="button"
+                  onClick={() => setQrZoomOpen(true)}
+                  aria-label="Enlarge QR code"
+                  className="relative flex-shrink-0 rounded-lg qr-paper focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/40"
+                >
+                  <img src={qrPreview} alt="Your UPI QR code" className="w-24 h-24 object-contain rounded-lg" />
+                  <span className="absolute -bottom-1.5 -right-1.5 w-7 h-7 rounded-full bg-slate-900 text-white border-2 border-white flex items-center justify-center">
+                    <Maximize2 className="w-3.5 h-3.5" />
+                  </span>
+                </button>
                 <div className="min-w-0 flex-1">
                   <p className="text-xs font-bold text-slate-800">QR code saved</p>
                   <p className="text-xs font-medium text-slate-500 mt-0.5 mb-2">
@@ -232,6 +244,15 @@ export default function PaymentSetupPage() {
       </main>
 
       <div className="h-1 w-24 mx-auto mb-4 rounded-full bg-slate-200" />
+
+      <QrZoom
+        src={qrPreview}
+        alt="Your UPI QR code"
+        isOpen={qrZoomOpen}
+        onClose={() => setQrZoomOpen(false)}
+        upiId={upiId}
+        name="Your"
+      />
     </div>
   );
 }

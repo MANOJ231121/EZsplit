@@ -1,11 +1,13 @@
 import React from 'react';
-import { Bell, Search } from 'lucide-react';
+import { Bell, Search, Moon, Sun } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
 import EzSplitLogo from './EzSplitLogo';
 
 export default function Navbar({ title }) {
   const { user } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   return (
@@ -24,6 +26,15 @@ export default function Navbar({ title }) {
       </div>
 
       <div className="flex items-center gap-1 shrink-0">
+        <button
+          onClick={toggleTheme}
+          className="w-11 h-11 flex items-center justify-center text-slate-500 active:bg-slate-100 rounded-full transition-colors"
+          title={isDark ? 'Switch to light mode' : 'Switch to night mode'}
+          aria-label={isDark ? 'Switch to light mode' : 'Switch to night mode'}
+        >
+          {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+        </button>
+
         <button
           onClick={() => navigate('/friends')}
           className="w-11 h-11 flex items-center justify-center text-slate-500 active:bg-slate-100 rounded-full transition-colors"

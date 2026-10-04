@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
+import QrZoom from '../components/QrZoom';
+import ThemeToggle from '../components/ThemeToggle';
 import {
-  LogOut, ShieldCheck, Mail, IndianRupee, Globe, QrCode, AtSign, Trash2,
+  LogOut, ShieldCheck, Mail, IndianRupee, QrCode, AtSign, Trash2, Maximize2, Moon,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { isValidUpiId } from '../lib/upi';
@@ -16,6 +18,7 @@ export default function AccountPage() {
   const [upiDraft, setUpiDraft] = useState(user?.upiId || '');
   const [savingUpi, setSavingUpi] = useState(false);
   const [accountError, setAccountError] = useState('');
+  const [qrZoomOpen, setQrZoomOpen] = useState(false);
 
   const handleLogout = async () => {
     await logout();
@@ -156,11 +159,21 @@ export default function AccountPage() {
 
               {(qrPreview || uploading) ? (
                 <div className="flex items-center gap-4">
-                  <img
-                    src={qrPreview}
-                    alt="Your UPI QR code"
-                    className="w-24 h-24 object-contain rounded-xl border border-slate-200 bg-white flex-shrink-0"
-                  />
+                  <button
+                    type="button"
+                    onClick={() => setQrZoomOpen(true)}
+                    aria-label="Enlarge QR code"
+                    className="relative flex-shrink-0 rounded-xl qr-paper focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/40"
+                  >
+                    <img
+                      src={qrPreview}
+                      alt="Your UPI QR code"
+                      className="w-24 h-24 object-contain rounded-xl border border-slate-200 bg-white"
+                    />
+                    <span className="absolute -bottom-1.5 -right-1.5 w-7 h-7 rounded-full bg-slate-900 text-white border-2 border-white flex items-center justify-center">
+                      <Maximize2 className="w-3.5 h-3.5" />
+                    </span>
+                  </button>
                   <div className="min-w-0 flex-1">
                     <p className="text-xs font-bold text-slate-800">
                       {uploading ? 'Saving QR code...' : 'QR code saved'}
@@ -200,22 +213,23 @@ export default function AccountPage() {
         <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-soft space-y-4">
           <h3 className="font-extrabold text-slate-900 text-sm">Preferences</h3>
 
-          <div className="flex items-center justify-between py-2 border-b border-slate-100">
+          <div className="flex items-center justify-between py-2">
+            <div className="flex items-center gap-3 min-w-0">
+              <Moon className="w-5 h-5 text-slate-500 flex-shrink-0" />
+              <div className="min-w-0">
+                <span className="text-xs font-bold text-slate-800 block">Night Mode</span>
+                <span className="text-[11px] font-medium text-slate-400 block">Darker colours at night</span>
+              </div>
+            </div>
+            <ThemeToggle />
+          </div>
+
+          <div className="flex items-center justify-between py-2 border-t border-slate-100">
             <div className="flex items-center gap-3">
               <IndianRupee className="w-5 h-5 text-slate-500" />
               <span className="text-xs font-bold text-slate-800">Primary Currency</span>
             </div>
             <span className="text-xs font-extrabold text-slate-600 bg-slate-100 px-3 py-1 rounded-lg">₹ (INR)</span>
-          </div>
-
-          <div className="flex items-center justify-between py-2">
-            <div className="flex items-center gap-3">
-              <Globe className="w-5 h-5 text-slate-500" />
-              <span className="text-xs font-bold text-slate-800">Deployment Target</span>
-            </div>
-            <span className="text-xs font-extrabold text-brand-600 bg-cyan-50 px-3 py-1 rounded-lg border border-cyan-200">
-              Vercel + Railway + Atlas
-            </span>
           </div>
         </div>
 
@@ -228,6 +242,15 @@ export default function AccountPage() {
           <span>Sign Out</span>
         </button>
       </main>
+
+      <QrZoom
+        src={qrPreview}
+        alt="Your UPI QR code"
+        isOpen={qrZoomOpen}
+        onClose={() => setQrZoomOpen(false)}
+        upiId={user?.upiId}
+        name="Your"
+      />
     </div>
   );
 }

@@ -8,7 +8,7 @@ public class FriendDto {
     private String email;
     private String profilePicture;
     private BigDecimal balance = BigDecimal.ZERO; // Positive: friend owes user, Negative: user owes friend, Zero: settled up
-    private String statusText; // "owes you ₹450", "you owe ₹300", "Settled up"
+    private String statusText; // "They owe you Rs 450", "You owe Rs 300", "All settled"
 
     public FriendDto() {}
 
@@ -24,12 +24,14 @@ public class FriendDto {
     }
 
     public void updateStatusText() {
+        // Always name who owes whom. The old "owes you" / "you owe" pair was
+        // easy to misread at a glance.
         if (balance.compareTo(BigDecimal.ZERO) > 0) {
-            this.statusText = "owes you ₹" + balance.abs().stripTrailingZeros().toPlainString();
+            this.statusText = "They owe you ₹" + balance.abs().stripTrailingZeros().toPlainString();
         } else if (balance.compareTo(BigDecimal.ZERO) < 0) {
-            this.statusText = "you owe ₹" + balance.abs().stripTrailingZeros().toPlainString();
+            this.statusText = "You owe ₹" + balance.abs().stripTrailingZeros().toPlainString();
         } else {
-            this.statusText = "Settled up";
+            this.statusText = "All settled";
         }
     }
 
