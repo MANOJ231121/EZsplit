@@ -127,12 +127,13 @@ public class PaymentService {
         // The deep link is only possible with a VPA; a QR-only payee still gets
         // their image, and the frontend shows scan-only instructions.
         if (hasUpiId) {
+            // Do not pass txnRef (tr) for P2P transfers. Passing tr to personal VPAs
+            // triggers merchant verification in UPI apps, causing bank limit (Z8) rejections.
             dto.setUpiIntentUri(UpiValidator.buildPayUri(
                     payee.getUpiId(),
                     payee.getName(),
                     amount,
-                    note != null && !note.isBlank() ? note : "EzSplit settlement",
-                    "EZSP" + System.currentTimeMillis()));
+                    note != null && !note.isBlank() ? note : "EzSplit settlement"));
         }
         if (hasQr) {
             dto.setUpiQrImage(payee.getUpiQrImage());

@@ -32,6 +32,10 @@ public final class UpiValidator {
         return trimmed.substring(0, at) + "@" + trimmed.substring(at + 1).toLowerCase();
     }
 
+    public static String buildPayUri(String vpa, String payeeName, BigDecimal amount, String note) {
+        return buildPayUri(vpa, payeeName, amount, note, null);
+    }
+
     public static String buildPayUri(String vpa, String payeeName, BigDecimal amount, String note, String txnRef) {
         String normalized = normalize(vpa);
         if (normalized == null || amount == null) return null;
