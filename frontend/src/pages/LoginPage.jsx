@@ -75,12 +75,15 @@ export default function LoginPage() {
   useEffect(() => {
     const el = googleWrapRef.current;
     if (!el) return;
-    const update = () => setGoogleWidth(Math.max(200, Math.floor(el.clientWidth)));
+    const update = () => {
+      const w = Math.min(400, Math.max(200, Math.floor(el.clientWidth)));
+      setGoogleWidth((prev) => (Math.abs(prev - w) > 8 ? w : prev));
+    };
     update();
     const observer = new ResizeObserver(update);
     observer.observe(el);
     return () => observer.disconnect();
-  }, [mode]);
+  }, []);
 
   const switchMode = () => {
     setMode(isSignup ? 'login' : 'signup');
