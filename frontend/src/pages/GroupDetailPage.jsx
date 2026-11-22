@@ -98,7 +98,7 @@ export default function GroupDetailPage() {
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4 min-w-0">
-              <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-brand-600 to-cyan-400 text-white flex items-center justify-center font-black text-2xl shadow-brand-glow flex-shrink-0">
+              <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-brand-600 to-brand-400 text-white flex items-center justify-center font-black text-2xl shadow-brand-glow flex-shrink-0">
                 {group.name.substring(0, 2).toUpperCase()}
               </div>
               <div className="min-w-0">
