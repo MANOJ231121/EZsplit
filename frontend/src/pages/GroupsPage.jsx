@@ -82,7 +82,7 @@ export default function GroupsPage() {
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-teal-500 text-white flex items-center justify-center font-black text-base shadow-brand-glow flex-shrink-0">
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-400 text-white flex items-center justify-center font-black text-base shadow-brand-glow flex-shrink-0">
                         {group.name.substring(0, 2).toUpperCase()}
                       </div>
                       <div className="min-w-0">

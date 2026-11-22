@@ -7,41 +7,80 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Cyan primary. The scale is shifted one step darker than Tailwind's
-        // stock cyan so brand-500 keeps legible white text (3.5:1) for buttons.
+        /*
+         * Warm neutral ramp. Everything that used to read as cool blue-grey
+         * (slate-50 → slate-900) now resolves to the warm paper / charcoal
+         * tones from the Split Bill reference design. Because these are theme
+         * tokens, every opacity and state variant (`bg-slate-800/60`,
+         * `hover:bg-slate-200`, ...) picks them up automatically.
+         */
+        slate: {
+          50: '#F7F5F2',
+          100: '#F1EDE8',
+          200: '#E7E0D8',
+          300: '#D7CFC5',
+          400: '#A79A90',
+          500: '#87776C',
+          600: '#6B5A50',
+          700: '#5E443A',
+          800: '#2A1E18',
+          900: '#0F0B0A',
+          950: '#070504',
+        },
+        /*
+         * Primary orange. 400 is the vivid #FE860A accent from the reference;
+         * 500/600 are stepped down so white button labels stay legible.
+         */
         brand: {
-          50: '#ecfeff',
-          100: '#cffafe',
-          200: '#a5f3fc',
-          300: '#67e8f9',
-          400: '#22d3ee',
-          500: '#0891b2',
-          600: '#0e7490',
-          700: '#155e75',
-          800: '#164e63',
-          900: '#083344',
+          50: '#FFF4E9',
+          100: '#FFE6CC',
+          200: '#FFCB99',
+          300: '#FFB066',
+          400: '#FE860A',
+          500: '#D96A00',
+          600: '#B85C05',
+          700: '#8E4708',
+          800: '#6D3809',
+          900: '#4F2A08',
+        },
+        /*
+         * The old cyan-ish surfaces become warm sand / amber washes, keeping
+         * informational chips distinct from the primary orange without
+         * dragging a cold blue tone into the palette.
+         */
+        cyan: {
+          50: '#FFF7EC',
+          100: '#FFF0D7',
+          200: '#FFE1AF',
+          300: '#FFC97D',
+          400: '#F5A94F',
+          500: '#D98A2B',
+          600: '#B56C16',
+          700: '#8F5312',
+          800: '#6F4210',
+          900: '#5A370F',
         },
         owe: {
-          50: '#fef2f2',
-          100: '#fee2e2',
-          500: '#ef4444', // Red for user owing money
-          600: '#dc2626',
+          50: '#FEF2F0',
+          100: '#FEE2DE',
+          500: '#E24A3A',
+          600: '#C93B2C',
         },
         owed: {
-          50: '#ecfdf5',
-          100: '#d1fae5',
-          500: '#10b981', // Green for user owed money
-          600: '#059669',
-        }
+          50: '#ECFDF7',
+          100: '#D1FAE9',
+          500: '#0E9F72',
+          600: '#0B7D5A',
+        },
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
       },
       boxShadow: {
-        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02)',
-        'card': '0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03)',
-        'brand-glow': '0 8px 25px -4px rgba(8, 145, 178, 0.35)',
-        'brand-glow-lg': '0 18px 40px -12px rgba(8, 145, 178, 0.45)',
+        'soft': '0 4px 20px -2px rgba(15, 11, 10, 0.06), 0 2px 6px -1px rgba(15, 11, 10, 0.03)',
+        'card': '0 10px 30px -5px rgba(15, 11, 10, 0.10), 0 4px 12px -2px rgba(15, 11, 10, 0.04)',
+        'brand-glow': '0 8px 24px -6px rgba(254, 134, 10, 0.45)',
+        'brand-glow-lg': '0 18px 40px -12px rgba(254, 134, 10, 0.50)',
       },
       scale: {
         98: '0.98',
